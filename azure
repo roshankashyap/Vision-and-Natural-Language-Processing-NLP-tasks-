@@ -1,0 +1,30 @@
+import ComputerVisionClient
+from azure.cognitiveservices.vision.computervision.models import VisualFeatureTypes
+from msrest.authentication import CognitiveServicesCredentials
+
+# Azure Cognitive Services credentials
+subscription_key = 'YOUR_SUBSCRIPTION_KEY'
+endpoint = 'YOUR_ENDPOINT'
+
+# Create a Computer Vision client
+credentials = CognitiveServicesCredentials(subscription_key)
+vision_client = ComputerVisionClient(endpoint, credentials)
+
+# Perform image analysis
+image_url = 'https://example.com/image.jpg'
+features = [VisualFeatureTypes.tags, VisualFeatureTypes.description]
+
+image_analysis = vision_client.analyze_image(image_url, visual_features=features)
+
+# Print detected tags and image description
+print('Tags:')
+for tag in image_analysis.tags:
+    print(tag.name)
+
+print('\nImage Description:')
+print(image_analysis.description.captions[0].text)
+INPUT/OUTPUT:
+
+python
+Copy code
+image_url = 'https://example.com/image.jpg'
